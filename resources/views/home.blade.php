@@ -4,7 +4,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <a href="#"><i class="fa fa-dashboard"></i> Thêm bàn</a>
+            <a href="#"><i class="fa fa-plus"></i> Thêm bàn</a>
         </section>
 
         <!-- Main content -->
@@ -31,9 +31,9 @@
                         <!-- small box -->
                         <div class="small-box {{$class}}">
                             <div class="inner">
-                                <h3>{{$title}}</h3>
+                                <h3>{{$item->name}}</h3>
 
-                                <p>{{$item->name}}</p>
+                                <p>{{$title}}</p>
                             </div>
                             <div class="icon">
                                 <i class="fa {{$icon}}"></i>
