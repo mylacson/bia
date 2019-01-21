@@ -19,4 +19,5 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group( ['middleware' => 'auth' ], function(){
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('startDevice/{id}', 'HomeController@startDevice')->name('startDevice')->where(['id' => '[0-9]+']);
 });

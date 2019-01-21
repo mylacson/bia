@@ -11,9 +11,30 @@
         <section class="content">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                @foreach($devices as $item)
+                <div class="col-lg-12 col-xs-12">
+                    @if(Session::has('success'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            {{ Session::get('success') }}
+                        </div>
+                    @elseif(Session::has('error'))
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-ban"></i> {{__('Thông Báo')}}:</h4>
+                            {!! Session::get('error') !!}
+                        </div>
+                    @elseif(isset($errorMsg))
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-ban"></i> {{__('Thông Báo')}}:</h4>
+                            {!! $errorMsg !!}
+                        </div>
+                    @endif
+                </div>
+                @foreach($devices as $k=> $item)
                     <?php
-                    if ($item->status == 1) {
+                    $url = '';
+                    if ($item->status == 2) {
                         $class = 'bg-aqua';
                         $title = 'Đang chơi';
                         $icon = 'fa-map-pin';
@@ -25,15 +46,25 @@
                         $class = 'bg-yellow';
                         $title = 'Chưa chơi';
                         $icon = 'ion-person-add';
+                        $url = route('startDevice',['id'=>$item->id]);
                     }
                     ?>
                     <div class="col-lg-6 col-xs-6">
                         <!-- small box -->
-                        <div class="small-box {{$class}}">
+                        <div class="small-box {{$class}}" url="{{$url}}">
                             <div class="inner">
-                                <h3>{{$item->name}}</h3>
-
-                                <p>{{$title}}</p>
+                                <h3 class="name">{{$item->name}}</h3>
+                                <p class="countup" id="{{'countup'.$k}}" time-start="{{!empty($item->getPost())?$item->getPost()->time_start:""}}">
+                                    {{$title}}
+                                    @if($item->status == 2)
+                                        <span class="timeel hours">00</span>
+                                        <span class="timeel timeRefHours">hours</span>
+                                        <span class="timeel minutes">00</span>
+                                        <span class="timeel timeRefMinutes">minutes</span>
+                                        <span class="timeel seconds">00</span>
+                                        <span class="timeel timeRefSeconds">seconds</span>
+                                        @endif
+                                </p>
                             </div>
                             <div class="icon">
                                 <i class="fa {{$icon}}"></i>

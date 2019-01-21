@@ -11,8 +11,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     <!-- Styles -->
-{{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-<!-- Bootstrap 3.3.7 -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Bootstrap 3.3.7 -->
     <link href="{{ asset('AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{ asset('AdminLTE/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -62,7 +62,7 @@
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     <li>
-                        <a href="{{route('logout')}}" ><i class="fa fa-sign-out"></i></a>
+                        <a href="{{route('logout')}}"><i class="fa fa-sign-out"></i></a>
                     </li>
                 </ul>
             </div>
@@ -128,9 +128,9 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--<script src="{{ asset('AdminLTE/dist/js/pages/dashboard.js') }}" defer></script>--}}
 <!-- AdminLTE for demo purposes -->
-{{--<script src="{{ asset('AdminLTE/dist/js/demo.js') }}" defer></script>--}}
+<script src="{{ asset('js/jquery-confirm.min.js') }}" defer></script>
 <!-- Scripts -->
-{{--<script src="{{ asset('js/app.js') }}" defer></script>--}}
+<script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>
 

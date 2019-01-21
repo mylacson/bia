@@ -37,6 +37,14 @@
 <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}" defer></script>
 <!-- iCheck -->
 <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}" defer></script>
-<script src="{{ asset('js/app.js') }}" defer></script>
+<script>
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' /* optional */
+        });
+    });
+</script>
 </body>
 </html>
