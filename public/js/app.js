@@ -95,8 +95,9 @@
 
 $(function () {
   $('.small-box').on('click', function () {
-    var url = $(this).attr('url'),
-        name = $(this).find('h3.name').text();
+    var urlStart = $(this).attr('urlStart'),
+        name = $(this).find('h3.name').text(),
+        timeStart = $(this).find('.inner p').attr('time-start');
 
     if ($(this).hasClass("bg-yellow")) {
       $.confirm({
@@ -104,7 +105,7 @@ $(function () {
         content: 'Bắt đầu tính giờ?',
         buttons: {
           OK: function OK() {
-            window.location.href = url;
+            window.location.href = urlStart;
           },
           Thoát: function ThoT() {}
         }
@@ -112,65 +113,62 @@ $(function () {
     } else if ('bg-aqua') {
       $.confirm({
         title: name,
-        content: '' + '<form action="" class="formName">' + '<div class="form-group">' + '<label>Enter something here</label>' + '<input type="text" placeholder="Your name" class="name form-control" required />' + '</div>' + '</form>',
-        buttons: {
-          formSubmit: {
-            text: 'Submit',
-            btnClass: 'btn-blue',
-            action: function action() {
-              var name = this.$content.find('.name').val();
+        closeIcon: true,
+        boxWidth: '30%',
+        useBootstrap: false,
+        onOpen: function onOpen() {
+          var id = $('#countup'); // Month Day, Year Hour:Minute:Second, id-of-element-container
 
-              if (!name) {
-                $.alert('provide a valid name');
-                return false;
-              }
-
-              $.alert('Your name is ' + name);
-            }
-          },
-          cancel: function cancel() {//close
-          }
+          countUpFromTime(timeStart, id); // ****** Change this line!
         },
-        onContentReady: function onContentReady() {
-          // bind to events
-          var jc = this;
-          this.$content.find('form').on('submit', function (e) {
-            // if the user submits the form by pressing enter in the field.
-            e.preventDefault();
-            jc.$$formSubmit.trigger('click'); // reference the button and click it
-          });
+        content: '<div class="form-group">' + '<p id="countup">Đang chơi: ' + '<span class="timeel hours">00</span>\n' + '<span class="timeel timeRefHours">Giờ</span>\n' + '<span class="timeel minutes">00</span>\n' + '<span class="timeel timeRefMinutes">Phút</span>\n' + // '<span class="timeel seconds">00</span>\n' +
+        // '<span class="timeel timeRefSeconds">seconds</span></p>'+
+        '</div>',
+        buttons: {
+          'Gọi Thêm': function GIThM() {
+            $.dialog({
+              title: 'Asynchronous content',
+              content: 'url:http://localhost/bida/public/',
+              animation: 'scale',
+              columnClass: 'medium',
+              closeAnimation: 'scale',
+              backgroundDismiss: true
+            });
+          },
+          'Tính Tiền': function TNhTiN() {
+            alert(2);
+          },
+          'Chuyển bàn': function ChuyNBN() {
+            alert(3);
+          },
+          Thoát: function ThoT() {
+            alert(3);
+          }
         }
       });
     }
   });
-}); // count up clock
 
-window.onload = function () {
-  var id = $('#countup6'),
-      timeStart = id.attr('time-start'); // Month Day, Year Hour:Minute:Second, id-of-element-container
+  function countUpFromTime(countFrom, elment) {
+    countFrom = new Date(countFrom).getTime();
+    var now = new Date(),
+        countFrom = new Date(countFrom),
+        timeDifference = now - countFrom;
+    var secondsInADay = 60 * 60 * 1000 * 24,
+        secondsInAHour = 60 * 60 * 1000;
+    days = Math.floor(timeDifference / secondsInADay * 1);
+    hours = Math.floor(timeDifference % secondsInADay / secondsInAHour * 1);
+    mins = Math.floor(timeDifference % secondsInADay % secondsInAHour / (60 * 1000) * 1);
+    secs = Math.floor(timeDifference % secondsInADay % secondsInAHour % (60 * 1000) / 1000 * 1);
+    elment.find('.hours').text(days * 24 + hours);
+    elment.find('.minutes').text(mins); // elment.find('.seconds').text(secs);
 
-  countUpFromTime(timeStart, id); // ****** Change this line!
-};
-
-function countUpFromTime(countFrom, elment) {
-  countFrom = new Date(countFrom).getTime();
-  var now = new Date(),
-      countFrom = new Date(countFrom),
-      timeDifference = now - countFrom;
-  var secondsInADay = 60 * 60 * 1000 * 24,
-      secondsInAHour = 60 * 60 * 1000;
-  days = Math.floor(timeDifference / secondsInADay * 1);
-  hours = Math.floor(timeDifference % secondsInADay / secondsInAHour * 1);
-  mins = Math.floor(timeDifference % secondsInADay % secondsInAHour / (60 * 1000) * 1);
-  secs = Math.floor(timeDifference % secondsInADay % secondsInAHour % (60 * 1000) / 1000 * 1);
-  elment.find('.hours').text(days * 24 + hours);
-  elment.find('.minutes').text(mins);
-  elment.find('.seconds').text(secs);
-  clearTimeout(countUpFromTime.interval);
-  countUpFromTime.interval = setTimeout(function () {
-    countUpFromTime(countFrom, elment);
-  }, 1000);
-}
+    clearTimeout(countUpFromTime.interval);
+    countUpFromTime.interval = setTimeout(function () {
+      countUpFromTime(countFrom, elment);
+    }, 1000);
+  }
+});
 
 /***/ }),
 

@@ -51,19 +51,11 @@
                     ?>
                     <div class="col-lg-6 col-xs-6">
                         <!-- small box -->
-                        <div class="small-box {{$class}}" url="{{$url}}">
+                        <div class="small-box {{$class}}" urlStart="{{$url}}">
                             <div class="inner">
                                 <h3 class="name">{{$item->name}}</h3>
-                                <p class="countup" id="{{'countup'.$k}}" time-start="{{!empty($item->getPost())?$item->getPost()->time_start:""}}">
+                                <p time-start="{{!empty($item->getPost())?$item->getPost()->time_start:""}}">
                                     {{$title}}
-                                    @if($item->status == 2)
-                                        <span class="timeel hours">00</span>
-                                        <span class="timeel timeRefHours">hours</span>
-                                        <span class="timeel minutes">00</span>
-                                        <span class="timeel timeRefMinutes">minutes</span>
-                                        <span class="timeel seconds">00</span>
-                                        <span class="timeel timeRefSeconds">seconds</span>
-                                        @endif
                                 </p>
                             </div>
                             <div class="icon">
